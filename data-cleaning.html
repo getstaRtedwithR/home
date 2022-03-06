@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<title>Chapter 5 Data Cleaning | Getting StaRted with R</title>
+<meta name="author" content="Ryan Carlson and Xanni Brown">
+<meta name="description" content="In this section we will cover how to load data, clean your data, and wrangle your data in R.  5.1 Loading data into R So you’ve got some data you would like to analyze. The first step is to load...">
+<meta name="generator" content="bookdown 0.24 with bs4_book()">
+<meta property="og:title" content="Chapter 5 Data Cleaning | Getting StaRted with R">
+<meta property="og:type" content="book">
+<meta property="og:description" content="In this section we will cover how to load data, clean your data, and wrangle your data in R.  5.1 Loading data into R So you’ve got some data you would like to analyze. The first step is to load...">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Chapter 5 Data Cleaning | Getting StaRted with R">
+<meta name="twitter:description" content="In this section we will cover how to load data, clean your data, and wrangle your data in R.  5.1 Loading data into R So you’ve got some data you would like to analyze. The first step is to load...">
+<!-- JS --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/6.4.6/fuse.js" integrity="sha512-zv6Ywkjyktsohkbp9bb45V6tEMoWhzFzXis+LrMehmJZZSys19Yxf1dopHx7WzIKxr5tK2dVcYmaCk2uqdjF4A==" crossorigin="anonymous"></script><script src="https://kit.fontawesome.com/6ecbd6c532.js" crossorigin="anonymous"></script><script src="libs/header-attrs-2.11/header-attrs.js"></script><script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<link href="libs/bootstrap-4.6.0/bootstrap.min.css" rel="stylesheet">
+<script src="libs/bootstrap-4.6.0/bootstrap.bundle.min.js"></script><script src="libs/bs3compat-0.3.1/transition.js"></script><script src="libs/bs3compat-0.3.1/tabs.js"></script><script src="libs/bs3compat-0.3.1/bs3compat.js"></script><link href="libs/bs4_book-1.0.0/bs4_book.css" rel="stylesheet">
+<script src="libs/bs4_book-1.0.0/bs4_book.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/autocomplete.js/0.38.0/autocomplete.jquery.min.js" integrity="sha512-GU9ayf+66Xx2TmpxqJpliWbT5PiGYxpaG8rfnBEk1LL8l1KGkRShhngwdXK1UgqhAzWpZHSiYPc09/NwDQIGyg==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/mark.min.js" integrity="sha512-5CYOlHXGh6QpOFA/TeTylKLWfB3ftPsde7AnmhuitiTX4K5SqCLBeKro6sPS8ilsz1Q4NRx3v8Ko2IBiszzdww==" crossorigin="anonymous"></script><!-- CSS -->
+</head>
+<body data-spy="scroll" data-target="#toc">
+
+<div class="container-fluid">
+<div class="row">
+  <header class="col-sm-12 col-lg-3 sidebar sidebar-book"><a class="sr-only sr-only-focusable" href="#content">Skip to main content</a>
+
+    <div class="d-flex align-items-start justify-content-between">
+      <h1>
+        <a href="index.html" title="">Getting StaRted with R</a>
+      </h1>
+      <button class="btn btn-outline-primary d-lg-none ml-2 mt-1" type="button" data-toggle="collapse" data-target="#main-nav" aria-expanded="true" aria-controls="main-nav"><i class="fas fa-bars"></i><span class="sr-only">Show table of contents</span></button>
+    </div>
+
+    <div id="main-nav" class="collapse-lg">
+      <form role="search">
+        <input id="search" class="form-control" type="search" placeholder="Search" aria-label="Search">
+</form>
+
+      <nav aria-label="Table of contents"><h2>Table of contents</h2>
+        <ul class="book-toc list-unstyled">
+<li><a class="" href="index.html"><span class="header-section-number">1</span> The value of learning R</a></li>
+<li><a class="" href="setup.html"><span class="header-section-number">2</span> Set-up</a></li>
+<li><a class="" href="basic-commands.html"><span class="header-section-number">3</span> Basic commands</a></li>
+<li><a class="" href="types-of-data-in-r.html"><span class="header-section-number">4</span> Types of data in R</a></li>
+<li><a class="active" href="data-cleaning.html"><span class="header-section-number">5</span> Data Cleaning</a></li>
+<li><a class="" href="references.html">References</a></li>
+</ul>
+
+        <div class="book-extra">
+          
+        </div>
+      </nav>
+</div>
+  </header><main class="col-sm-12 col-md-9 col-lg-7" id="content"><div id="data-cleaning" class="section level1" number="5">
+<h1>
+<span class="header-section-number">5</span> Data Cleaning<a class="anchor" aria-label="anchor" href="#data-cleaning"><i class="fas fa-link"></i></a>
+</h1>
+<p>In this section we will cover how to load data, clean your data, and wrangle your data in R.</p>
+<div id="loading-data-into-r" class="section level2" number="5.1">
+<h2>
+<span class="header-section-number">5.1</span> Loading data into R<a class="anchor" aria-label="anchor" href="#loading-data-into-r"><i class="fas fa-link"></i></a>
+</h2>
+<p>So you’ve got some data you would like to analyze. The first step is to load in your data.</p>
+<p>For this task, we can typically use the read.csv command. Assuming our .csv data file is located in the same folder on our computer as our R file (this is always good practice!), we can simply use the following function which will store our data locally as the data frame “df”:</p>
+<div class="sourceCode" id="cb76"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">df</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/utils/read.table.html">read.csv</a></span><span class="op">(</span><span class="st">"data.csv"</span><span class="op">)</span>
+
+<span class="co"># If our csv happens to have multiple rows of headers (which is often the case when one is working with Qualtrics data, for instance), we can use the 'skip' and 'header' commands to specify the number of rows which should be treated as headers.</span>
+
+<span class="co">#df = read.csv("data.csv", skip = 3, header = F)</span></code></pre></div>
+</div>
+<div id="inspecting-data-in-r" class="section level2" number="5.2">
+<h2>
+<span class="header-section-number">5.2</span> Inspecting data in R<a class="anchor" aria-label="anchor" href="#inspecting-data-in-r"><i class="fas fa-link"></i></a>
+</h2>
+<p>We can now inspect our data to ensure it looks ready for analysis. Ideally we have rows and columns that only reflect our data, and not some of info such as variable headers. To ensure everything looks good, we can use the following commands:</p>
+<div class="sourceCode" id="cb77"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="co">#df # this prints our entire data frame</span>
+
+<span class="co">#head(df) # 'head' shows a sneak peek of the first several rows and columns of our data</span>
+
+<span class="co">#names(df) # 'names' shows our variables names</span>
+
+<span class="co"># you can test out other commands as well, such as 'str', 'levels', etc)</span></code></pre></div>
+</div>
+<div id="subsetting-data" class="section level2" number="5.3">
+<h2>
+<span class="header-section-number">5.3</span> Subsetting data<a class="anchor" aria-label="anchor" href="#subsetting-data"><i class="fas fa-link"></i></a>
+</h2>
+<p>We might next want to subset our data on the basis of some variable of interest. For instance, perhaps we want to filter out subjects who behaved a certain way. To do this, we can use the subset function with some conditional logic.</p>
+<div class="sourceCode" id="cb78"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="co"># In R, if we want to check if a statement is true, we use "==", whereas we use "=" to define variables</span>
+  <span class="va">a</span> <span class="op">=</span> <span class="fl">1</span> <span class="co"># assign value 1 to a</span>
+  <span class="va">b</span> <span class="op">=</span> <span class="fl">2</span> <span class="co"># assign value 2 to b</span>
+  <span class="va">a</span> <span class="op">==</span> <span class="fl">1</span> <span class="co"># check if a is equal to 1 (TRUE)</span></code></pre></div>
+<pre><code>## [1] TRUE</code></pre>
+<div class="sourceCode" id="cb80"><pre class="downlit sourceCode r">
+<code class="sourceCode R">  <span class="va">a</span> <span class="op">==</span> <span class="fl">2</span> <span class="co"># check if a is equal to 2 (FALSE)</span></code></pre></div>
+<pre><code>## [1] FALSE</code></pre>
+<div class="sourceCode" id="cb82"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">df_fair</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/subset.html">subset</a></span><span class="op">(</span><span class="va">df</span>, <span class="va">df</span><span class="op">$</span><span class="va">fairness_violation</span> <span class="op">==</span> <span class="st">"violator"</span><span class="op">)</span> <span class="co"># this creates a new dataframe with only subjects whose score on the variable 'fairness_violation' is equal to "violator" (which means that in this choice task they made decisions which they believed were unfair)</span></code></pre></div>
+</div>
+<div id="computing-averages-of-several-variables" class="section level2" number="5.4">
+<h2>
+<span class="header-section-number">5.4</span> Computing averages of several variables<a class="anchor" aria-label="anchor" href="#computing-averages-of-several-variables"><i class="fas fa-link"></i></a>
+</h2>
+<p>Another data cleaning task we might wish to accomplish is to create a variable which is the average of several variables. We can do this in a few different ways.</p>
+<div class="sourceCode" id="cb83"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="co"># Imagine we have five identical decisions made at different time points, if we want the average of those decisions we can simply average them together as follows:</span>
+
+<span class="va">df</span><span class="op">$</span><span class="va">decision_avg</span> <span class="op">=</span> <span class="op">(</span><span class="va">df</span><span class="op">$</span><span class="va">decision1</span><span class="op">+</span><span class="va">df</span><span class="op">$</span><span class="va">decision2</span><span class="op">+</span><span class="va">df</span><span class="op">$</span><span class="va">decision3</span><span class="op">+</span><span class="va">df</span><span class="op">$</span><span class="va">decision4</span><span class="op">+</span><span class="va">df</span><span class="op">$</span><span class="va">decision5</span><span class="op">)</span><span class="op">/</span><span class="fl">5</span>
+
+<span class="co"># We can now inspect the group average of this variable:</span>
+
+<span class="fu"><a href="https://rdrr.io/r/base/mean.html">mean</a></span><span class="op">(</span><span class="va">df</span><span class="op">$</span><span class="va">decision_avg</span><span class="op">)</span></code></pre></div>
+<pre><code>## [1] 30.97682</code></pre>
+<div class="sourceCode" id="cb85"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="co"># We can also do a basic visualization (a histogram) of the data to ensure it looks okay</span>
+
+<span class="fu"><a href="https://rdrr.io/r/graphics/hist.html">hist</a></span><span class="op">(</span><span class="va">df</span><span class="op">$</span><span class="va">decision_avg</span><span class="op">)</span></code></pre></div>
+<div class="inline-figure"><img src="bookdown-demo_files/figure-html/averaging%20data-1.png" width="672"></div>
+</div>
+<div id="recoding-variables" class="section level2" number="5.5">
+<h2>
+<span class="header-section-number">5.5</span> Recoding variables<a class="anchor" aria-label="anchor" href="#recoding-variables"><i class="fas fa-link"></i></a>
+</h2>
+<p>A final task we might wish to accomplish is recoding our data. For instance, our raw data file might have gender coded as ‘1,’ ‘2,’ ‘3,’ and ‘4.’ In R, we can easily update each value in this variable to reflect its true qualitative value.</p>
+<div class="sourceCode" id="cb86"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span><span class="op">(</span><span class="va">df</span><span class="op">$</span><span class="va">gender</span><span class="op">)</span></code></pre></div>
+<pre><code>## [1] 1 1 1 1 2 1</code></pre>
+<div class="sourceCode" id="cb88"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="co"># Currently, our gender variable is We can apply value labels to in</span>
+
+<span class="va">df</span><span class="op">$</span><span class="va">gender</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/factor.html">factor</a></span><span class="op">(</span><span class="va">df</span><span class="op">$</span><span class="va">gender</span>,
+levels <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">1</span>,<span class="fl">2</span>,<span class="fl">3</span>,<span class="fl">4</span><span class="op">)</span>,
+labels <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"Female"</span>, <span class="st">"Male"</span>, <span class="st">"Other"</span>, <span class="st">"Prefer Not To Say"</span><span class="op">)</span><span class="op">)</span>  <span class="co"># Here, each value is being changed to a meaningful string which reflects its qualitative category.</span>
+
+<span class="co"># Now we can observe this change:</span>
+
+<span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span><span class="op">(</span><span class="va">df</span><span class="op">$</span><span class="va">gender</span><span class="op">)</span></code></pre></div>
+<pre><code>## [1] Female Female Female Female Male   Female
+## Levels: Female Male Other Prefer Not To Say</code></pre>
+</div>
+<div id="removing-missing-data" class="section level2" number="5.6">
+<h2>
+<span class="header-section-number">5.6</span> Removing missing data<a class="anchor" aria-label="anchor" href="#removing-missing-data"><i class="fas fa-link"></i></a>
+</h2>
+<p>Imagine we have missing values for subjects on a number of variables. If this variable is crucial to our analysis, we can exclude these subjects full stop. However, we might also wish to include their data when possible. Fortunately R has functions for both possibilities.</p>
+<div class="sourceCode" id="cb90"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="co"># We can use na.omit to remove any columns and rows with missing data</span>
+
+<span class="va">df</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/stats/na.fail.html">na.omit</a></span><span class="op">(</span><span class="va">df</span><span class="op">)</span>
+
+<span class="co"># Alternatively, we can selectively deploy na.omit within our actual statistical tests. Indeed, most packages in R allow one to specify whether to omit missing data because missing data can often cause packages to not run properly. For instance, we can specify that a t-test we wish to perform (a topic we will discuss in further detail in a future chapter) should omit missing values.</span>
+
+<span class="fu"><a href="https://rdrr.io/r/stats/t.test.html">t.test</a></span><span class="op">(</span><span class="va">df</span><span class="op">$</span><span class="va">decision1</span>, <span class="va">df</span><span class="op">$</span><span class="va">decision2</span>, na.omit<span class="op">=</span><span class="cn">TRUE</span><span class="op">)</span> </code></pre></div>
+<pre><code>## 
+##  Welch Two Sample t-test
+## 
+## data:  df$decision1 and df$decision2
+## t = 0.37765, df = 1289.8, p-value = 0.7058
+## alternative hypothesis: true difference in means is not equal to 0
+## 95 percent confidence interval:
+##  -1.883128  2.780961
+## sample estimates:
+## mean of x mean of y 
+##  31.03715  30.58824</code></pre>
+<p>We hope this helps clarify how to perform some of the basic steps in data cleaning.</p>
+
+</div>
+</div>
+  <div class="chapter-nav">
+<div class="prev"><a href="types-of-data-in-r.html"><span class="header-section-number">4</span> Types of data in R</a></div>
+<div class="next"><a href="references.html">References</a></div>
+</div></main><div class="col-md-3 col-lg-2 d-none d-md-block sidebar sidebar-chapter">
+    <nav id="toc" data-toggle="toc" aria-label="On this page"><h2>On this page</h2>
+      <ul class="nav navbar-nav">
+<li><a class="nav-link" href="#data-cleaning"><span class="header-section-number">5</span> Data Cleaning</a></li>
+<li><a class="nav-link" href="#loading-data-into-r"><span class="header-section-number">5.1</span> Loading data into R</a></li>
+<li><a class="nav-link" href="#inspecting-data-in-r"><span class="header-section-number">5.2</span> Inspecting data in R</a></li>
+<li><a class="nav-link" href="#subsetting-data"><span class="header-section-number">5.3</span> Subsetting data</a></li>
+<li><a class="nav-link" href="#computing-averages-of-several-variables"><span class="header-section-number">5.4</span> Computing averages of several variables</a></li>
+<li><a class="nav-link" href="#recoding-variables"><span class="header-section-number">5.5</span> Recoding variables</a></li>
+<li><a class="nav-link" href="#removing-missing-data"><span class="header-section-number">5.6</span> Removing missing data</a></li>
+</ul>
+
+      <div class="book-extra">
+        <ul class="list-unstyled">
+          
+        </ul>
+</div>
+    </nav>
+</div>
+
+</div>
+</div> <!-- .container -->
+
+<footer class="bg-primary text-light mt-5"><div class="container"><div class="row">
+
+  <div class="col-12 col-md-6 mt-3">
+    <p>"<strong>Getting StaRted with R</strong>" was written by Ryan Carlson and Xanni Brown. It was last built on 2022-03-06.</p>
+  </div>
+
+  <div class="col-12 col-md-6 mt-3">
+    <p>This book was built by the <a class="text-light" href="https://bookdown.org">bookdown</a> R package.</p>
+  </div>
+
+</div></div>
+</footer>
+</body>
+</html>

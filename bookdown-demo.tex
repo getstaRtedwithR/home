@@ -1,0 +1,998 @@
+% Options for packages loaded elsewhere
+\PassOptionsToPackage{unicode}{hyperref}
+\PassOptionsToPackage{hyphens}{url}
+%
+\documentclass[
+]{book}
+\title{Getting StaRted with R}
+\author{Ryan Carlson and Xanni Brown}
+\date{2022-03-06}
+
+\usepackage{amsmath,amssymb}
+\usepackage{lmodern}
+\usepackage{iftex}
+\ifPDFTeX
+  \usepackage[T1]{fontenc}
+  \usepackage[utf8]{inputenc}
+  \usepackage{textcomp} % provide euro and other symbols
+\else % if luatex or xetex
+  \usepackage{unicode-math}
+  \defaultfontfeatures{Scale=MatchLowercase}
+  \defaultfontfeatures[\rmfamily]{Ligatures=TeX,Scale=1}
+\fi
+% Use upquote if available, for straight quotes in verbatim environments
+\IfFileExists{upquote.sty}{\usepackage{upquote}}{}
+\IfFileExists{microtype.sty}{% use microtype if available
+  \usepackage[]{microtype}
+  \UseMicrotypeSet[protrusion]{basicmath} % disable protrusion for tt fonts
+}{}
+\makeatletter
+\@ifundefined{KOMAClassName}{% if non-KOMA class
+  \IfFileExists{parskip.sty}{%
+    \usepackage{parskip}
+  }{% else
+    \setlength{\parindent}{0pt}
+    \setlength{\parskip}{6pt plus 2pt minus 1pt}}
+}{% if KOMA class
+  \KOMAoptions{parskip=half}}
+\makeatother
+\usepackage{xcolor}
+\IfFileExists{xurl.sty}{\usepackage{xurl}}{} % add URL line breaks if available
+\IfFileExists{bookmark.sty}{\usepackage{bookmark}}{\usepackage{hyperref}}
+\hypersetup{
+  pdftitle={Getting StaRted with R},
+  pdfauthor={Ryan Carlson and Xanni Brown},
+  hidelinks,
+  pdfcreator={LaTeX via pandoc}}
+\urlstyle{same} % disable monospaced font for URLs
+\usepackage{color}
+\usepackage{fancyvrb}
+\newcommand{\VerbBar}{|}
+\newcommand{\VERB}{\Verb[commandchars=\\\{\}]}
+\DefineVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\{\}}
+% Add ',fontsize=\small' for more characters per line
+\usepackage{framed}
+\definecolor{shadecolor}{RGB}{248,248,248}
+\newenvironment{Shaded}{\begin{snugshade}}{\end{snugshade}}
+\newcommand{\AlertTok}[1]{\textcolor[rgb]{0.94,0.16,0.16}{#1}}
+\newcommand{\AnnotationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\AttributeTok}[1]{\textcolor[rgb]{0.77,0.63,0.00}{#1}}
+\newcommand{\BaseNTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
+\newcommand{\BuiltInTok}[1]{#1}
+\newcommand{\CharTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\CommentTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textit{#1}}}
+\newcommand{\CommentVarTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\ConstantTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\ControlFlowTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{\textbf{#1}}}
+\newcommand{\DataTypeTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{#1}}
+\newcommand{\DecValTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
+\newcommand{\DocumentationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\ErrorTok}[1]{\textcolor[rgb]{0.64,0.00,0.00}{\textbf{#1}}}
+\newcommand{\ExtensionTok}[1]{#1}
+\newcommand{\FloatTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
+\newcommand{\FunctionTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\ImportTok}[1]{#1}
+\newcommand{\InformationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\KeywordTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{\textbf{#1}}}
+\newcommand{\NormalTok}[1]{#1}
+\newcommand{\OperatorTok}[1]{\textcolor[rgb]{0.81,0.36,0.00}{\textbf{#1}}}
+\newcommand{\OtherTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{#1}}
+\newcommand{\PreprocessorTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textit{#1}}}
+\newcommand{\RegionMarkerTok}[1]{#1}
+\newcommand{\SpecialCharTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\SpecialStringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\StringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\VariableTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\VerbatimStringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\WarningTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\usepackage{longtable,booktabs,array}
+\usepackage{calc} % for calculating minipage widths
+% Correct order of tables after \paragraph or \subparagraph
+\usepackage{etoolbox}
+\makeatletter
+\patchcmd\longtable{\par}{\if@noskipsec\mbox{}\fi\par}{}{}
+\makeatother
+% Allow footnotes in longtable head/foot
+\IfFileExists{footnotehyper.sty}{\usepackage{footnotehyper}}{\usepackage{footnote}}
+\makesavenoteenv{longtable}
+\usepackage{graphicx}
+\makeatletter
+\def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth\else\Gin@nat@width\fi}
+\def\maxheight{\ifdim\Gin@nat@height>\textheight\textheight\else\Gin@nat@height\fi}
+\makeatother
+% Scale images if necessary, so that they will not overflow the page
+% margins by default, and it is still possible to overwrite the defaults
+% using explicit options in \includegraphics[width, height, ...]{}
+\setkeys{Gin}{width=\maxwidth,height=\maxheight,keepaspectratio}
+% Set default figure placement to htbp
+\makeatletter
+\def\fps@figure{htbp}
+\makeatother
+\setlength{\emergencystretch}{3em} % prevent overfull lines
+\providecommand{\tightlist}{%
+  \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+\setcounter{secnumdepth}{5}
+\usepackage{booktabs}
+\usepackage{amsthm}
+\makeatletter
+\def\thm@space@setup{%
+  \thm@preskip=8pt plus 2pt minus 4pt
+  \thm@postskip=\thm@preskip
+}
+\makeatother
+\ifLuaTeX
+  \usepackage{selnolig}  % disable illegal ligatures
+\fi
+\usepackage[]{natbib}
+\bibliographystyle{apalike}
+
+\begin{document}
+\maketitle
+
+{
+\setcounter{tocdepth}{1}
+\tableofcontents
+}
+\begin{figure}
+\centering
+\includegraphics{images/logo.jpeg}
+\caption{img}
+\end{figure}
+
+\hypertarget{the-value-of-learning-r}{%
+\chapter{The value of learning R}\label{the-value-of-learning-r}}
+
+Welcome! This is a guide for learning statistics in R via R Studio. R is a powerful, open-source programming language for data analysis and visualization, and the number one programming language in psychological science and data science. R Studio is a stylish user interface for coding in R, which makes learning R intuitive.
+
+Why learn R? Here's a few reasons:
+
+\begin{itemize}
+\tightlist
+\item
+  To efficiently analyze and visualize data for a project you're working on\\
+\item
+  To collaborate and promote open science, allowing others to efficiently analyze and visualize your data too\\
+\item
+  To gain a marketable programming experience\\
+\item
+  To learn a new language and way of thinking about problems
+\end{itemize}
+
+To get staRted with R, continue to the \emph{Setup} page!
+
+\hypertarget{setup}{%
+\chapter{Set-up}\label{setup}}
+
+\hypertarget{installing-r}{%
+\section{Installing R}\label{installing-r}}
+
+R is a free software, which you can download and install at:
+
+\url{http://cran.r-project.org/}
+
+When you open this page, you will see a box at the top labeled ``Download and Install R'' with three different links for Linux, Mac, and Windows users. Choose the one that's appropriate for you, and then follow the instructions on the page to install the latest version.
+
+\hypertarget{installing-r-studio}{%
+\section{Installing R Studio}\label{installing-r-studio}}
+
+Once you have done that, the next step is to install RStudio. RStudio provides a helpful and functional interface, which will allow you to write and edit your R code much more effectively. RStudio is also a free software (though the developers now also offer paid ``pro'' versions, which if you are reading this guide you are unlikely to need). To install RStudio, go to:
+
+\url{https://www.rstudio.com/}
+
+Because RStudio's point is to be a user-friendly wrapper for R, its website is also a bit easier to navigate than the R directory. Click on the ``Download'' button in the black bar at the top of the screen, select the free ``RStudio Desktop'' version, then follow the instructions on the page to install the correct version for your operating system.
+
+\hypertarget{navigating-r-studio}{%
+\section{Navigating R Studio}\label{navigating-r-studio}}
+
+Now, that you've installed R and RStudio, let's get oriented to the interface you'll be working in. When you open RStudio, you should get a window that looks roughly like this. You can see the screen is divided into four quadrants.
+
+\includegraphics{images/Rwindow.png}
+\#\#\#Scripts
+The upper left corner is for your script{[}s{]}. This is where you write code for what you want R to do. R may not open a blank script for you automatically. To do so yourself, look in the top left corner, click on the white square with the plus sign in the green circle, and then select ``R Script'' from the dropdown menu. This will open a new blank script. You can also open a previously saved script using the button with a folder.
+
+One of the main benefits of R is that you can write and save scripts that accomplish common tasks (cleaning data, doing a specific analysis, making graphs) and then use that same script on different data sets throughout your research career. This saves a lot of time and effort.
+
+\hypertarget{global-environment}{%
+\subsection{Global environment}\label{global-environment}}
+
+The upper right corner is for your Global Environment. This displays the any other data (data frames, vectors, lists, or individual variables) that you save. While mostly we'll work with typed commands for R, there are some useful buttons in here.
+\includegraphics{images/Global Environment.png}
+In this example, you can see we have a data set called ``Cars'', as well as a vector called ``ratings'' and an individual variable called ``MeanMPG'' (we'll go over what all those terms mean later). One useful button is the blue arrow to the left of the data set's name (``Cars''). Clicking this will drop down a summary of that data set, including the column names, the type of data contained within each column, and the first few values in the data set. Another way to look at your data is by clicking the spreadsheet-shaped icon on the right side of the row. This will open a viewer, which lets you look at (but not edit) the full datas et as if it were in excel. If you want to start over, the broom at the top clears your environment, removing all the data from your current R session. (Importantly, this does NOT delete it from its source! You can always read that same data back in to R.)
+
+\hypertarget{view-pane}{%
+\subsection{View Pane}\label{view-pane}}
+
+Below that, the bottom right pane is for viewing plots and for getting help in R. When you generate a plot using R, this is where it will show up, and where you can click to export or save it. It's also where the help interface is located. You can ask for help in r by typing a question mark before the name of any function, eg: \texttt{\{r\}\ ?sqrt()}
+You can also click into the help tab and use the search bar there to find help with a specific function.
+
+\hypertarget{console}{%
+\subsection{Console}\label{console}}
+
+The bottom left quadrant is the console. In it, you can see the code you have run, the responses R generates, and any error messages. You can also type code directly into the console and run it from there.
+
+\hypertarget{basic-commands}{%
+\chapter{Basic commands}\label{basic-commands}}
+
+In this section we will cover basic commands in R.
+
+\hypertarget{r-as-a-calculator}{%
+\section{R as a calculator}\label{r-as-a-calculator}}
+
+R is in many ways an interactive calculator, and practicing using R as such can help build intuitions for how to code in R. To practice using R as a calculator, try typing out the statements below (note: spacing does not matter in R).
+
+You can `run' these statements in a number of ways. The most efficient way is to click onto the line of code you want to run and press CMD + Return. You can also highlight multiple lines of code with your cursor and use these to execute all of the lines at once. The results will display in your Console (bottom panel in R Studio). (Alternatively: you can copy and paste any code we share into \url{https://rdrr.io/snippets/} to generate the results in your browser).
+
+\begin{verbatim}
+2 + 2
+
+4 - 1
+
+5 * 5
+
+10 / 2
+\end{verbatim}
+
+\hypertarget{assigning-values-to-variables}{%
+\section{Assigning values to variables}\label{assigning-values-to-variables}}
+
+Another important feature of R is using variables. Variables are elements you can create and store in your R environment to use for future calculations.
+
+Let's create a variable which refers to the number 7:
+
+\begin{verbatim}
+varA = 7
+\end{verbatim}
+
+Note: we can also store variables which reflect other data types, a topic we will discuss ahead):
+
+\hypertarget{using-variables-for-calculations}{%
+\section{Using variables for calculations}\label{using-variables-for-calculations}}
+
+With our variable `a' saved, we can perform calculations by directly referencing varA. For instance, multiplying varA by 2 produces in Console produces ``14''.
+
+\begin{verbatim}
+varA * 2
+\end{verbatim}
+
+Capitalization matters in R, so calculations with `vara' will trigger an error since we have not defined this variable
+
+\begin{verbatim}
+vara * 2
+\end{verbatim}
+
+We can flexibly use `varA' for a wide variety of calculations.
+
+\begin{verbatim}
+varA + 20
+varA - 3 / 2
+70 / varA
+varA * varA
+\end{verbatim}
+
+\hypertarget{basic-functions-sqrt}{%
+\section{Basic functions: sqrt()}\label{basic-functions-sqrt}}
+
+Another important feature of R is `functions'. Functions take inputs (numbers or variables) and transform them in different ways. To illustrate, lets apply a basic function, R's square root function, to a number, and then and our variable.
+
+\begin{verbatim}
+sqrt(4)
+sqrt(varA)
+\end{verbatim}
+
+We will return to functions in more detail in future chapters.
+
+\hypertarget{types-of-data-in-r}{%
+\chapter{Types of data in R}\label{types-of-data-in-r}}
+
+R can store all kinds of different data, varying in shape, class, and size. In this section, we'll first go over the various shapes of data available: variables, vectors, and data sets. Then we'll discuss the different classes of data: integer/numeric, character, logical, and factor. Finally we'll go over a few commands for discerning the size of your data.
+
+\hypertarget{shape}{%
+\section{Shape}\label{shape}}
+
+\hypertarget{variables}{%
+\subsection{Variables}\label{variables}}
+
+You can store a single value with a command like:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{x }\OtherTok{=} \DecValTok{8} 
+\end{Highlighting}
+\end{Shaded}
+
+You can also store the output of a function as a variable, like:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{y }\OtherTok{=} \FunctionTok{sqrt}\NormalTok{(}\DecValTok{9}\NormalTok{) }
+\end{Highlighting}
+\end{Shaded}
+
+or
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{z }\OtherTok{=} \FunctionTok{mean}\NormalTok{(}\FunctionTok{c}\NormalTok{(}\DecValTok{2}\NormalTok{, }\DecValTok{4}\NormalTok{, }\DecValTok{5}\NormalTok{, }\DecValTok{3}\NormalTok{)) }
+\end{Highlighting}
+\end{Shaded}
+
+If you look in your global environment after running each of those lines of code, you'll see new entries under ``Values'' which list the variable name (x, y, and z) and the value stored (8, 3, and 3.5).
+
+\hypertarget{vectors}{%
+\subsection{Vectors}\label{vectors}}
+
+You can also store strings of values, called vectors in R. You can string a set of values together using the
+\textbf{c()} command. Technically ``c'' stands for ``concatenate'' (a mathematical term for linking things together in a series), but in my mind I always think of it as ``combine''. You can store strings of numbers, or, you can store strings of words/characters:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{numbers }\OtherTok{=} \FunctionTok{c}\NormalTok{(}\DecValTok{1}\NormalTok{, }\DecValTok{5}\NormalTok{, }\DecValTok{12}\NormalTok{, }\DecValTok{7}\NormalTok{, }\DecValTok{4}\NormalTok{)   }
+\NormalTok{words }\OtherTok{=} \FunctionTok{c}\NormalTok{(}\StringTok{"good"}\NormalTok{, }\StringTok{"dog"}\NormalTok{, }\StringTok{"big"}\NormalTok{, }\StringTok{"fluffy"}\NormalTok{, }\StringTok{"treat"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+There are some useful shortcuts for making certain types of vectors. If you want a vector made up of increasing or decreasing integers, you can use the : command, which works in increasing or decreasing order, like so:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\DecValTok{1}\SpecialCharTok{:}\DecValTok{7} 
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 1 2 3 4 5 6 7
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\DecValTok{12}\SpecialCharTok{:}\DecValTok{6} 
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 12 11 10  9  8  7  6
+\end{verbatim}
+
+Another useful shortcut is the \textbf{rep()} function, short for ``repeat.'' Here you enter first the variable or vector you want to repeat, and then how many times you want to repeat it. So if you needed to create a vector with the number 2 repeated five times, you'd write:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{AllTwos }\OtherTok{=} \FunctionTok{rep}\NormalTok{(}\DecValTok{2}\NormalTok{, }\DecValTok{5}\NormalTok{) }
+\NormalTok{AllTwos}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 2 2 2 2 2
+\end{verbatim}
+
+You can also combine the c() and rep() commands to have a sequence repeat, like so:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{PetDog }\OtherTok{=} \FunctionTok{rep}\NormalTok{(}\FunctionTok{c}\NormalTok{(}\StringTok{"Pet"}\NormalTok{, }\StringTok{"Dog"}\NormalTok{), }\DecValTok{3}\NormalTok{) }
+\NormalTok{PetDog}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] "Pet" "Dog" "Pet" "Dog" "Pet" "Dog"
+\end{verbatim}
+
+\hypertarget{indexing-vectors}{%
+\subsubsection{Indexing vectors}\label{indexing-vectors}}
+
+Selecting one (or more) items out of the longer vector is called indexing. This is a very useful command which we'll build on in future sections. To index, square brackets after the vector to indicate the position of the value(s) you're interested in. So, to see the second item in the ``numbers'' vector, you would type \textbf{numbers{[}2{]}} and would expect to see the number 5 as the output, like so:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{numbers[}\DecValTok{2}\NormalTok{]}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 5
+\end{verbatim}
+
+You can also select multiple values in a vector, whether or not they are continuous.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# continuous, use : command}
+\NormalTok{words[}\DecValTok{3}\SpecialCharTok{:}\DecValTok{5}\NormalTok{]}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] "big"    "fluffy" "treat"
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# non{-}continuous, use c() to create a list of the values you want to see}
+\NormalTok{words[}\FunctionTok{c}\NormalTok{(}\DecValTok{1}\NormalTok{,}\DecValTok{2}\NormalTok{,}\DecValTok{5}\NormalTok{)]}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] "good"  "dog"   "treat"
+\end{verbatim}
+
+\hypertarget{data-frames}{%
+\subsection{Data frames}\label{data-frames}}
+
+Data can also be stored in a two-dimensional matrix called a data frame. Think of this like a spreadsheet or table of data. Here's an example of some data about cars that is already in the base R package:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{mtcars}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##                      mpg cyl  disp  hp drat    wt  qsec vs am gear carb
+## Mazda RX4           21.0   6 160.0 110 3.90 2.620 16.46  0  1    4    4
+## Mazda RX4 Wag       21.0   6 160.0 110 3.90 2.875 17.02  0  1    4    4
+## Datsun 710          22.8   4 108.0  93 3.85 2.320 18.61  1  1    4    1
+## Hornet 4 Drive      21.4   6 258.0 110 3.08 3.215 19.44  1  0    3    1
+## Hornet Sportabout   18.7   8 360.0 175 3.15 3.440 17.02  0  0    3    2
+## Valiant             18.1   6 225.0 105 2.76 3.460 20.22  1  0    3    1
+## Duster 360          14.3   8 360.0 245 3.21 3.570 15.84  0  0    3    4
+## Merc 240D           24.4   4 146.7  62 3.69 3.190 20.00  1  0    4    2
+## Merc 230            22.8   4 140.8  95 3.92 3.150 22.90  1  0    4    2
+## Merc 280            19.2   6 167.6 123 3.92 3.440 18.30  1  0    4    4
+## Merc 280C           17.8   6 167.6 123 3.92 3.440 18.90  1  0    4    4
+## Merc 450SE          16.4   8 275.8 180 3.07 4.070 17.40  0  0    3    3
+## Merc 450SL          17.3   8 275.8 180 3.07 3.730 17.60  0  0    3    3
+## Merc 450SLC         15.2   8 275.8 180 3.07 3.780 18.00  0  0    3    3
+## Cadillac Fleetwood  10.4   8 472.0 205 2.93 5.250 17.98  0  0    3    4
+## Lincoln Continental 10.4   8 460.0 215 3.00 5.424 17.82  0  0    3    4
+## Chrysler Imperial   14.7   8 440.0 230 3.23 5.345 17.42  0  0    3    4
+## Fiat 128            32.4   4  78.7  66 4.08 2.200 19.47  1  1    4    1
+## Honda Civic         30.4   4  75.7  52 4.93 1.615 18.52  1  1    4    2
+## Toyota Corolla      33.9   4  71.1  65 4.22 1.835 19.90  1  1    4    1
+## Toyota Corona       21.5   4 120.1  97 3.70 2.465 20.01  1  0    3    1
+## Dodge Challenger    15.5   8 318.0 150 2.76 3.520 16.87  0  0    3    2
+## AMC Javelin         15.2   8 304.0 150 3.15 3.435 17.30  0  0    3    2
+## Camaro Z28          13.3   8 350.0 245 3.73 3.840 15.41  0  0    3    4
+## Pontiac Firebird    19.2   8 400.0 175 3.08 3.845 17.05  0  0    3    2
+## Fiat X1-9           27.3   4  79.0  66 4.08 1.935 18.90  1  1    4    1
+## Porsche 914-2       26.0   4 120.3  91 4.43 2.140 16.70  0  1    5    2
+## Lotus Europa        30.4   4  95.1 113 3.77 1.513 16.90  1  1    5    2
+## Ford Pantera L      15.8   8 351.0 264 4.22 3.170 14.50  0  1    5    4
+## Ferrari Dino        19.7   6 145.0 175 3.62 2.770 15.50  0  1    5    6
+## Maserati Bora       15.0   8 301.0 335 3.54 3.570 14.60  0  1    5    8
+## Volvo 142E          21.4   4 121.0 109 4.11 2.780 18.60  1  1    4    2
+\end{verbatim}
+
+You'll learn more about how to get a descriptive sense of what's in a data frame in the next chapter. For now, it's worth noting that in addition to the actual numbers (or other types of data) comprising the table itself, each data frame can also have row names and column names. You can list or edit those names with the \textbf{rownames()} and \textbf{colnames()} commands.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{rownames}\NormalTok{(mtcars)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##  [1] "Mazda RX4"           "Mazda RX4 Wag"       "Datsun 710"         
+##  [4] "Hornet 4 Drive"      "Hornet Sportabout"   "Valiant"            
+##  [7] "Duster 360"          "Merc 240D"           "Merc 230"           
+## [10] "Merc 280"            "Merc 280C"           "Merc 450SE"         
+## [13] "Merc 450SL"          "Merc 450SLC"         "Cadillac Fleetwood" 
+## [16] "Lincoln Continental" "Chrysler Imperial"   "Fiat 128"           
+## [19] "Honda Civic"         "Toyota Corolla"      "Toyota Corona"      
+## [22] "Dodge Challenger"    "AMC Javelin"         "Camaro Z28"         
+## [25] "Pontiac Firebird"    "Fiat X1-9"           "Porsche 914-2"      
+## [28] "Lotus Europa"        "Ford Pantera L"      "Ferrari Dino"       
+## [31] "Maserati Bora"       "Volvo 142E"
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{colnames}\NormalTok{(mtcars)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##  [1] "mpg"  "cyl"  "disp" "hp"   "drat" "wt"   "qsec" "vs"   "am"   "gear"
+## [11] "carb"
+\end{verbatim}
+
+\hypertarget{indexing-data-frames}{%
+\subsubsection{Indexing data frames}\label{indexing-data-frames}}
+
+In the same way that you can index, or select, certain values out of a vector, you can also index the values you need out of a data frame. To do this, you use the following format: \textbf{dataframe{[}row, column{]}}. Here are some examples:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{mtcars[}\DecValTok{4}\NormalTok{,}\DecValTok{1}\NormalTok{] }\CommentTok{\#select the value in the fourth row and first column}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 21.4
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{mtcars[}\DecValTok{2}\NormalTok{,}\DecValTok{6}\NormalTok{] }\CommentTok{\#select the value in the second row and sixth column}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 2.875
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\#You can select an entire row or column by leaving the other value blank: }
+\NormalTok{mtcars[}\DecValTok{3}\NormalTok{,] }\CommentTok{\#select the entire third row}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##             mpg cyl disp hp drat   wt  qsec vs am gear carb
+## Datsun 710 22.8   4  108 93 3.85 2.32 18.61  1  1    4    1
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{mtcars[,}\DecValTok{5}\NormalTok{] }\CommentTok{\#select the entire fifth column}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##  [1] 3.90 3.90 3.85 3.08 3.15 2.76 3.21 3.69 3.92 3.92 3.92 3.07 3.07 3.07 2.93
+## [16] 3.00 3.23 4.08 4.93 4.22 3.70 2.76 3.15 3.73 3.08 4.08 4.43 3.77 4.22 3.62
+## [31] 3.54 4.11
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\#You can also select multiple rows/columns by using a vector:}
+\NormalTok{mtcars[}\DecValTok{1}\SpecialCharTok{:}\DecValTok{5}\NormalTok{,] }\CommentTok{\#select the contents of the first five rows}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##                    mpg cyl disp  hp drat    wt  qsec vs am gear carb
+## Mazda RX4         21.0   6  160 110 3.90 2.620 16.46  0  1    4    4
+## Mazda RX4 Wag     21.0   6  160 110 3.90 2.875 17.02  0  1    4    4
+## Datsun 710        22.8   4  108  93 3.85 2.320 18.61  1  1    4    1
+## Hornet 4 Drive    21.4   6  258 110 3.08 3.215 19.44  1  0    3    1
+## Hornet Sportabout 18.7   8  360 175 3.15 3.440 17.02  0  0    3    2
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{mtcars[}\DecValTok{12}\SpecialCharTok{:}\DecValTok{16}\NormalTok{, }\DecValTok{1}\SpecialCharTok{:}\DecValTok{3}\NormalTok{] }\CommentTok{\#within rows 12{-}16, select the first three columns}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##                      mpg cyl  disp
+## Merc 450SE          16.4   8 275.8
+## Merc 450SL          17.3   8 275.8
+## Merc 450SLC         15.2   8 275.8
+## Cadillac Fleetwood  10.4   8 472.0
+## Lincoln Continental 10.4   8 460.0
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\#Finally, you can also use the row and column names to select instead of the numbers. Note that you must enclose the row/column name in quotation marks.}
+\NormalTok{mtcars[,}\StringTok{"cyl"}\NormalTok{] }\CommentTok{\#select all the values in the "cyl" column}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##  [1] 6 6 4 6 8 6 8 4 4 6 6 8 8 8 8 8 8 4 4 4 4 8 8 8 8 4 4 4 8 6 8 4
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{mtcars[}\StringTok{"Honda Civic"}\NormalTok{,}\StringTok{"mpg"}\NormalTok{] }\CommentTok{\#select the miles per gallon (mpg) of the Honda Civic.}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 30.4
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{mtcars[}\FunctionTok{c}\NormalTok{(}\StringTok{"Hornet 4 Drive"}\NormalTok{, }\StringTok{"Hornet Sportabout"}\NormalTok{), ] }\CommentTok{\#select all the columns for the Hornet 4 Drive and Hornet Sportabout row}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##                    mpg cyl disp  hp drat    wt  qsec vs am gear carb
+## Hornet 4 Drive    21.4   6  258 110 3.08 3.215 19.44  1  0    3    1
+## Hornet Sportabout 18.7   8  360 175 3.15 3.440 17.02  0  0    3    2
+\end{verbatim}
+
+Often, you'll want to select a single column within a dataframe. The shortcut for this is \textbf{\$}, so if you wanted to select the ``cyl'' column from mtcars, you could type:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{mtcars}\SpecialCharTok{$}\NormalTok{cyl}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##  [1] 6 6 4 6 8 6 8 4 4 6 6 8 8 8 8 8 8 4 4 4 4 8 8 8 8 4 4 4 8 6 8 4
+\end{verbatim}
+
+\hypertarget{class}{%
+\section{Class}\label{class}}
+
+There are three main types of vectors in R: numbers, characters, and logical. Numbers can be represented as \textbf{numeric} or \textbf{integer} class vectors depending on whether or not they have decimals, but those two classes function very similarly. Any string of words or letters can be stored as a \textbf{character} class vector. Finally, \textbf{logical} vectors store data that has one of two values: \textbf{TRUE} or \textbf{FALSE}. You can find the out which type of data any vector is by using the \textbf{class()} argument.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\#Let\textquotesingle{}s look at the two vectors we created earlier:}
+\NormalTok{numbers }\OtherTok{=} \FunctionTok{c}\NormalTok{(}\DecValTok{1}\NormalTok{, }\DecValTok{5}\NormalTok{, }\DecValTok{12}\NormalTok{, }\DecValTok{7}\NormalTok{, }\DecValTok{4}\NormalTok{)   }
+\NormalTok{words }\OtherTok{=} \FunctionTok{c}\NormalTok{(}\StringTok{"good"}\NormalTok{, }\StringTok{"dog"}\NormalTok{, }\StringTok{"big"}\NormalTok{, }\StringTok{"fluffy"}\NormalTok{, }\StringTok{"treat"}\NormalTok{)}
+
+\CommentTok{\#What types of data do they contain?}
+\FunctionTok{class}\NormalTok{(numbers)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] "numeric"
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{class}\NormalTok{(words)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] "character"
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\#Note that each vector can only be one class of data. So if you create a vector that has a mix of characters and numbers, it will be stored as a character vector.}
+\NormalTok{mixed }\OtherTok{=} \FunctionTok{c}\NormalTok{(}\StringTok{"I am"}\NormalTok{, }\DecValTok{16}\NormalTok{, }\StringTok{"going"}\NormalTok{, }\StringTok{"on"}\NormalTok{, }\DecValTok{17}\NormalTok{)}
+\FunctionTok{class}\NormalTok{(mixed)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] "character"
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\#You can also see what class of vector a column within a data set has:}
+\FunctionTok{class}\NormalTok{(mtcars[,}\StringTok{"mpg"}\NormalTok{])}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] "numeric"
+\end{verbatim}
+
+You can create a logical vector either by combining TRUE or FALSE values with the \textbf{c()} function. For example:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\#Creating a logical vector with c(). Note that you do not need quotes here because R recognizes TRUE and FALSE (or abbreviated as T and F) specifically as representing logical data.}
+\NormalTok{logics }\OtherTok{=} \FunctionTok{c}\NormalTok{(}\ConstantTok{TRUE}\NormalTok{, }\ConstantTok{FALSE}\NormalTok{, }\ConstantTok{TRUE}\NormalTok{, T, F)}
+\FunctionTok{class}\NormalTok{(logics)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] "logical"
+\end{verbatim}
+
+\hypertarget{relational-operators}{%
+\subsection{Relational Operators}\label{relational-operators}}
+
+Alternatively, you can create a logical variable by asking a question about an existing variable using a relational operator. These include \textbf{==, \textgreater, \textless, \textgreater=, and \textless=}. So for example, \textbf{x == y} asks the question, ``is x equal to y?'', while \textbf{x \textless{} y } asks the question ``is x less than y?'' Here, we apply those relational operators to our existing vectors:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\#Creating a logical vector with c(). Note that you do not need quotes here because R recognizes TRUE and FALSE (or abbreviated as T and F) specifically as representing logical data.}
+\NormalTok{numbers }\OtherTok{=} \FunctionTok{c}\NormalTok{(}\DecValTok{1}\NormalTok{, }\DecValTok{5}\NormalTok{, }\DecValTok{12}\NormalTok{, }\DecValTok{7}\NormalTok{, }\DecValTok{4}\NormalTok{)   }
+\NormalTok{words }\OtherTok{=} \FunctionTok{c}\NormalTok{(}\StringTok{"good"}\NormalTok{, }\StringTok{"dog"}\NormalTok{, }\StringTok{"big"}\NormalTok{, }\StringTok{"fluffy"}\NormalTok{, }\StringTok{"treat"}\NormalTok{)}
+\NormalTok{PetDog }\OtherTok{=} \FunctionTok{rep}\NormalTok{(}\FunctionTok{c}\NormalTok{(}\StringTok{"Pet"}\NormalTok{, }\StringTok{"Dog"}\NormalTok{), }\DecValTok{3}\NormalTok{)}
+
+\CommentTok{\#We might ask which values in numbers are less than 10. }
+\NormalTok{numbers }\SpecialCharTok{\textless{}} \DecValTok{10}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1]  TRUE  TRUE FALSE  TRUE  TRUE
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\#To save that as a logical variable saying which numbers are small, you could:}
+\NormalTok{small }\OtherTok{=}\NormalTok{ (numbers }\SpecialCharTok{\textless{}} \DecValTok{10}\NormalTok{) }
+
+\CommentTok{\#You can also use the == operator with character vectors:}
+\NormalTok{PetDog }\SpecialCharTok{==} \StringTok{"Pet"}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1]  TRUE FALSE  TRUE FALSE  TRUE FALSE
+\end{verbatim}
+
+You can also ask a question about each value within a column of your data frame, and store the answers in a new column. For example, if you were curious which cars had relatively poor gas mileage (we'll operationalize that as getting less than 20 miles per gallon), you could do the following:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{mtcars}\SpecialCharTok{$}\NormalTok{badmileage }\OtherTok{=}\NormalTok{ mtcars}\SpecialCharTok{$}\NormalTok{mpg }\SpecialCharTok{\textless{}} \DecValTok{20}
+\end{Highlighting}
+\end{Shaded}
+
+This creates a new column in our mtcars dataframe that record the TRUE/FALSE values for whether each car gets less than 20 miles per gallon.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{mtcars[, }\FunctionTok{c}\NormalTok{(}\StringTok{"mpg"}\NormalTok{, }\StringTok{"badmileage"}\NormalTok{)] }\CommentTok{\#look at the mpg and badmileage columns}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##                      mpg badmileage
+## Mazda RX4           21.0      FALSE
+## Mazda RX4 Wag       21.0      FALSE
+## Datsun 710          22.8      FALSE
+## Hornet 4 Drive      21.4      FALSE
+## Hornet Sportabout   18.7       TRUE
+## Valiant             18.1       TRUE
+## Duster 360          14.3       TRUE
+## Merc 240D           24.4      FALSE
+## Merc 230            22.8      FALSE
+## Merc 280            19.2       TRUE
+## Merc 280C           17.8       TRUE
+## Merc 450SE          16.4       TRUE
+## Merc 450SL          17.3       TRUE
+## Merc 450SLC         15.2       TRUE
+## Cadillac Fleetwood  10.4       TRUE
+## Lincoln Continental 10.4       TRUE
+## Chrysler Imperial   14.7       TRUE
+## Fiat 128            32.4      FALSE
+## Honda Civic         30.4      FALSE
+## Toyota Corolla      33.9      FALSE
+## Toyota Corona       21.5      FALSE
+## Dodge Challenger    15.5       TRUE
+## AMC Javelin         15.2       TRUE
+## Camaro Z28          13.3       TRUE
+## Pontiac Firebird    19.2       TRUE
+## Fiat X1-9           27.3      FALSE
+## Porsche 914-2       26.0      FALSE
+## Lotus Europa        30.4      FALSE
+## Ford Pantera L      15.8       TRUE
+## Ferrari Dino        19.7       TRUE
+## Maserati Bora       15.0       TRUE
+## Volvo 142E          21.4      FALSE
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{class}\NormalTok{(mtcars}\SpecialCharTok{$}\NormalTok{badmileage) }\CommentTok{\#check the class of the new badmileage column}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] "logical"
+\end{verbatim}
+
+\hypertarget{size}{%
+\section{Size}\label{size}}
+
+There are a few useful commands for ascertaining the size of your data frame.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{nrow}\NormalTok{(mtcars) }\CommentTok{\# how many rows is mtcars?}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 32
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{ncol}\NormalTok{(mtcars) }\CommentTok{\# how many columns is mtcars?}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 12
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{dim}\NormalTok{(mtcars) }\CommentTok{\#print the row length and column length for mtcars.}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 32 12
+\end{verbatim}
+
+\hypertarget{data-cleaning}{%
+\chapter{Data Cleaning}\label{data-cleaning}}
+
+In this section we will cover how to load data, clean your data, and wrangle your data in R.
+
+\hypertarget{loading-data-into-r}{%
+\section{Loading data into R}\label{loading-data-into-r}}
+
+So you've got some data you would like to analyze. The first step is to load in your data.
+
+For this task, we can typically use the read.csv command. Assuming our .csv data file is located in the same folder on our computer as our R file (this is always good practice!), we can simply use the following function which will store our data locally as the data frame ``df'':
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{df }\OtherTok{=} \FunctionTok{read.csv}\NormalTok{(}\StringTok{"data.csv"}\NormalTok{)}
+
+\CommentTok{\# If our csv happens to have multiple rows of headers (which is often the case when one is working with Qualtrics data, for instance), we can use the \textquotesingle{}skip\textquotesingle{} and \textquotesingle{}header\textquotesingle{} commands to specify the number of rows which should be treated as headers.}
+
+\CommentTok{\#df = read.csv("data.csv", skip = 3, header = F)}
+\end{Highlighting}
+\end{Shaded}
+
+\hypertarget{inspecting-data-in-r}{%
+\section{Inspecting data in R}\label{inspecting-data-in-r}}
+
+We can now inspect our data to ensure it looks ready for analysis. Ideally we have rows and columns that only reflect our data, and not some of info such as variable headers. To ensure everything looks good, we can use the following commands:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\#df \# this prints our entire data frame}
+
+\CommentTok{\#head(df) \# \textquotesingle{}head\textquotesingle{} shows a sneak peek of the first several rows and columns of our data}
+
+\CommentTok{\#names(df) \# \textquotesingle{}names\textquotesingle{} shows our variables names}
+
+\CommentTok{\# you can test out other commands as well, such as \textquotesingle{}str\textquotesingle{}, \textquotesingle{}levels\textquotesingle{}, etc)}
+\end{Highlighting}
+\end{Shaded}
+
+\hypertarget{subsetting-data}{%
+\section{Subsetting data}\label{subsetting-data}}
+
+We might next want to subset our data on the basis of some variable of interest. For instance, perhaps we want to filter out subjects who behaved a certain way. To do this, we can use the subset function with some conditional logic.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# In R, if we want to check if a statement is true, we use "==", whereas we use "=" to define variables}
+\NormalTok{  a }\OtherTok{=} \DecValTok{1} \CommentTok{\# assign value 1 to a}
+\NormalTok{  b }\OtherTok{=} \DecValTok{2} \CommentTok{\# assign value 2 to b}
+\NormalTok{  a }\SpecialCharTok{==} \DecValTok{1} \CommentTok{\# check if a is equal to 1 (TRUE)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] TRUE
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{  a }\SpecialCharTok{==} \DecValTok{2} \CommentTok{\# check if a is equal to 2 (FALSE)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] FALSE
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{df\_fair }\OtherTok{=} \FunctionTok{subset}\NormalTok{(df, df}\SpecialCharTok{$}\NormalTok{fairness\_violation }\SpecialCharTok{==} \StringTok{"violator"}\NormalTok{) }\CommentTok{\# this creates a new dataframe with only subjects whose score on the variable \textquotesingle{}fairness\_violation\textquotesingle{} is equal to "violator" (which means that in this choice task they made decisions which they believed were unfair)}
+\end{Highlighting}
+\end{Shaded}
+
+\hypertarget{computing-averages-of-several-variables}{%
+\section{Computing averages of several variables}\label{computing-averages-of-several-variables}}
+
+Another data cleaning task we might wish to accomplish is to create a variable which is the average of several variables. We can do this in a few different ways.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# Imagine we have five identical decisions made at different time points, if we want the average of those decisions we can simply average them together as follows:}
+
+\NormalTok{df}\SpecialCharTok{$}\NormalTok{decision\_avg }\OtherTok{=}\NormalTok{ (df}\SpecialCharTok{$}\NormalTok{decision1}\SpecialCharTok{+}\NormalTok{df}\SpecialCharTok{$}\NormalTok{decision2}\SpecialCharTok{+}\NormalTok{df}\SpecialCharTok{$}\NormalTok{decision3}\SpecialCharTok{+}\NormalTok{df}\SpecialCharTok{$}\NormalTok{decision4}\SpecialCharTok{+}\NormalTok{df}\SpecialCharTok{$}\NormalTok{decision5)}\SpecialCharTok{/}\DecValTok{5}
+
+\CommentTok{\# We can now inspect the group average of this variable:}
+
+\FunctionTok{mean}\NormalTok{(df}\SpecialCharTok{$}\NormalTok{decision\_avg)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 30.97682
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# We can also do a basic visualization (a histogram) of the data to ensure it looks okay}
+
+\FunctionTok{hist}\NormalTok{(df}\SpecialCharTok{$}\NormalTok{decision\_avg)}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{bookdown-demo_files/figure-latex/averaging data-1.pdf}
+
+\hypertarget{recoding-variables}{%
+\section{Recoding variables}\label{recoding-variables}}
+
+A final task we might wish to accomplish is recoding our data. For instance, our raw data file might have gender coded as `1', `2', `3', and `4'. In R, we can easily update each value in this variable to reflect its true qualitative value.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{head}\NormalTok{(df}\SpecialCharTok{$}\NormalTok{gender)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 1 1 1 1 2 1
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# Currently, our gender variable is We can apply value labels to in}
+
+\NormalTok{df}\SpecialCharTok{$}\NormalTok{gender }\OtherTok{=} \FunctionTok{factor}\NormalTok{(df}\SpecialCharTok{$}\NormalTok{gender,}
+\AttributeTok{levels =} \FunctionTok{c}\NormalTok{(}\DecValTok{1}\NormalTok{,}\DecValTok{2}\NormalTok{,}\DecValTok{3}\NormalTok{,}\DecValTok{4}\NormalTok{),}
+\AttributeTok{labels =} \FunctionTok{c}\NormalTok{(}\StringTok{"Female"}\NormalTok{, }\StringTok{"Male"}\NormalTok{, }\StringTok{"Other"}\NormalTok{, }\StringTok{"Prefer Not To Say"}\NormalTok{))  }\CommentTok{\# Here, each value is being changed to a meaningful string which reflects its qualitative category.}
+
+\CommentTok{\# Now we can observe this change:}
+
+\FunctionTok{head}\NormalTok{(df}\SpecialCharTok{$}\NormalTok{gender)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] Female Female Female Female Male   Female
+## Levels: Female Male Other Prefer Not To Say
+\end{verbatim}
+
+\hypertarget{removing-missing-data}{%
+\section{Removing missing data}\label{removing-missing-data}}
+
+Imagine we have missing values for subjects on a number of variables. If this variable is crucial to our analysis, we can exclude these subjects full stop. However, we might also wish to include their data when possible. Fortunately R has functions for both possibilities.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# We can use na.omit to remove any columns and rows with missing data}
+
+\NormalTok{df }\OtherTok{=} \FunctionTok{na.omit}\NormalTok{(df)}
+
+\CommentTok{\# Alternatively, we can selectively deploy na.omit within our actual statistical tests. Indeed, most packages in R allow one to specify whether to omit missing data because missing data can often cause packages to not run properly. For instance, we can specify that a t{-}test we wish to perform (a topic we will discuss in further detail in a future chapter) should omit missing values.}
+
+\FunctionTok{t.test}\NormalTok{(df}\SpecialCharTok{$}\NormalTok{decision1, df}\SpecialCharTok{$}\NormalTok{decision2, }\AttributeTok{na.omit=}\ConstantTok{TRUE}\NormalTok{) }
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## 
+##  Welch Two Sample t-test
+## 
+## data:  df$decision1 and df$decision2
+## t = 0.37765, df = 1289.8, p-value = 0.7058
+## alternative hypothesis: true difference in means is not equal to 0
+## 95 percent confidence interval:
+##  -1.883128  2.780961
+## sample estimates:
+## mean of x mean of y 
+##  31.03715  30.58824
+\end{verbatim}
+
+We hope this helps clarify how to perform some of the basic steps in data cleaning.
+
+  \bibliography{book.bib,packages.bib}
+
+\end{document}

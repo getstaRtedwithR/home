@@ -1,0 +1,396 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<title>Chapter 4 Types of data in R | Getting StaRted with R</title>
+<meta name="author" content="Ryan Carlson and Xanni Brown">
+<meta name="description" content="R can store all kinds of different data, varying in shape, class, and size. In this section, we’ll first go over the various shapes of data available: variables, vectors, and data sets. Then we’ll...">
+<meta name="generator" content="bookdown 0.24 with bs4_book()">
+<meta property="og:title" content="Chapter 4 Types of data in R | Getting StaRted with R">
+<meta property="og:type" content="book">
+<meta property="og:description" content="R can store all kinds of different data, varying in shape, class, and size. In this section, we’ll first go over the various shapes of data available: variables, vectors, and data sets. Then we’ll...">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Chapter 4 Types of data in R | Getting StaRted with R">
+<meta name="twitter:description" content="R can store all kinds of different data, varying in shape, class, and size. In this section, we’ll first go over the various shapes of data available: variables, vectors, and data sets. Then we’ll...">
+<!-- JS --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/6.4.6/fuse.js" integrity="sha512-zv6Ywkjyktsohkbp9bb45V6tEMoWhzFzXis+LrMehmJZZSys19Yxf1dopHx7WzIKxr5tK2dVcYmaCk2uqdjF4A==" crossorigin="anonymous"></script><script src="https://kit.fontawesome.com/6ecbd6c532.js" crossorigin="anonymous"></script><script src="libs/header-attrs-2.11/header-attrs.js"></script><script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<link href="libs/bootstrap-4.6.0/bootstrap.min.css" rel="stylesheet">
+<script src="libs/bootstrap-4.6.0/bootstrap.bundle.min.js"></script><script src="libs/bs3compat-0.3.1/transition.js"></script><script src="libs/bs3compat-0.3.1/tabs.js"></script><script src="libs/bs3compat-0.3.1/bs3compat.js"></script><link href="libs/bs4_book-1.0.0/bs4_book.css" rel="stylesheet">
+<script src="libs/bs4_book-1.0.0/bs4_book.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/autocomplete.js/0.38.0/autocomplete.jquery.min.js" integrity="sha512-GU9ayf+66Xx2TmpxqJpliWbT5PiGYxpaG8rfnBEk1LL8l1KGkRShhngwdXK1UgqhAzWpZHSiYPc09/NwDQIGyg==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/mark.min.js" integrity="sha512-5CYOlHXGh6QpOFA/TeTylKLWfB3ftPsde7AnmhuitiTX4K5SqCLBeKro6sPS8ilsz1Q4NRx3v8Ko2IBiszzdww==" crossorigin="anonymous"></script><!-- CSS -->
+</head>
+<body data-spy="scroll" data-target="#toc">
+
+<div class="container-fluid">
+<div class="row">
+  <header class="col-sm-12 col-lg-3 sidebar sidebar-book"><a class="sr-only sr-only-focusable" href="#content">Skip to main content</a>
+
+    <div class="d-flex align-items-start justify-content-between">
+      <h1>
+        <a href="index.html" title="">Getting StaRted with R</a>
+      </h1>
+      <button class="btn btn-outline-primary d-lg-none ml-2 mt-1" type="button" data-toggle="collapse" data-target="#main-nav" aria-expanded="true" aria-controls="main-nav"><i class="fas fa-bars"></i><span class="sr-only">Show table of contents</span></button>
+    </div>
+
+    <div id="main-nav" class="collapse-lg">
+      <form role="search">
+        <input id="search" class="form-control" type="search" placeholder="Search" aria-label="Search">
+</form>
+
+      <nav aria-label="Table of contents"><h2>Table of contents</h2>
+        <ul class="book-toc list-unstyled">
+<li><a class="" href="index.html"><span class="header-section-number">1</span> The value of learning R</a></li>
+<li><a class="" href="setup.html"><span class="header-section-number">2</span> Set-up</a></li>
+<li><a class="" href="basic-commands.html"><span class="header-section-number">3</span> Basic commands</a></li>
+<li><a class="active" href="types-of-data-in-r.html"><span class="header-section-number">4</span> Types of data in R</a></li>
+<li><a class="" href="data-cleaning.html"><span class="header-section-number">5</span> Data Cleaning</a></li>
+<li><a class="" href="references.html">References</a></li>
+</ul>
+
+        <div class="book-extra">
+          
+        </div>
+      </nav>
+</div>
+  </header><main class="col-sm-12 col-md-9 col-lg-7" id="content"><div id="types-of-data-in-r" class="section level1" number="4">
+<h1>
+<span class="header-section-number">4</span> Types of data in R<a class="anchor" aria-label="anchor" href="#types-of-data-in-r"><i class="fas fa-link"></i></a>
+</h1>
+<p>R can store all kinds of different data, varying in shape, class, and size. In this section, we’ll first go over the various shapes of data available: variables, vectors, and data sets. Then we’ll discuss the different classes of data: integer/numeric, character, logical, and factor. Finally we’ll go over a few commands for discerning the size of your data.</p>
+<div id="shape" class="section level2" number="4.1">
+<h2>
+<span class="header-section-number">4.1</span> Shape<a class="anchor" aria-label="anchor" href="#shape"><i class="fas fa-link"></i></a>
+</h2>
+<div id="variables" class="section level3" number="4.1.1">
+<h3>
+<span class="header-section-number">4.1.1</span> Variables<a class="anchor" aria-label="anchor" href="#variables"><i class="fas fa-link"></i></a>
+</h3>
+<p>You can store a single value with a command like:</p>
+<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">x</span> <span class="op">=</span> <span class="fl">8</span> </code></pre></div>
+<p>You can also store the output of a function as a variable, like:</p>
+<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">y</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/MathFun.html">sqrt</a></span><span class="op">(</span><span class="fl">9</span><span class="op">)</span> </code></pre></div>
+<p>or</p>
+<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">z</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/mean.html">mean</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">2</span>, <span class="fl">4</span>, <span class="fl">5</span>, <span class="fl">3</span><span class="op">)</span><span class="op">)</span> </code></pre></div>
+<p>If you look in your global environment after running each of those lines of code, you’ll see new entries under “Values” which list the variable name (x, y, and z) and the value stored (8, 3, and 3.5).</p>
+</div>
+<div id="vectors" class="section level3" number="4.1.2">
+<h3>
+<span class="header-section-number">4.1.2</span> Vectors<a class="anchor" aria-label="anchor" href="#vectors"><i class="fas fa-link"></i></a>
+</h3>
+<p>You can also store strings of values, called vectors in R. You can string a set of values together using the
+<strong>c()</strong> command. Technically “c” stands for “concatenate” (a mathematical term for linking things together in a series), but in my mind I always think of it as “combine.” You can store strings of numbers, or, you can store strings of words/characters:</p>
+<div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">numbers</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">5</span>, <span class="fl">12</span>, <span class="fl">7</span>, <span class="fl">4</span><span class="op">)</span>   
+<span class="va">words</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"good"</span>, <span class="st">"dog"</span>, <span class="st">"big"</span>, <span class="st">"fluffy"</span>, <span class="st">"treat"</span><span class="op">)</span></code></pre></div>
+<p>There are some useful shortcuts for making certain types of vectors. If you want a vector made up of increasing or decreasing integers, you can use the : command, which works in increasing or decreasing order, like so:</p>
+<div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fl">1</span><span class="op">:</span><span class="fl">7</span> </code></pre></div>
+<pre><code>## [1] 1 2 3 4 5 6 7</code></pre>
+<div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fl">12</span><span class="op">:</span><span class="fl">6</span> </code></pre></div>
+<pre><code>## [1] 12 11 10  9  8  7  6</code></pre>
+<p>Another useful shortcut is the <strong>rep()</strong> function, short for “repeat.” Here you enter first the variable or vector you want to repeat, and then how many times you want to repeat it. So if you needed to create a vector with the number 2 repeated five times, you’d write:</p>
+<div class="sourceCode" id="cb15"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">AllTwos</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/rep.html">rep</a></span><span class="op">(</span><span class="fl">2</span>, <span class="fl">5</span><span class="op">)</span> 
+<span class="va">AllTwos</span></code></pre></div>
+<pre><code>## [1] 2 2 2 2 2</code></pre>
+<p>You can also combine the c() and rep() commands to have a sequence repeat, like so:</p>
+<div class="sourceCode" id="cb17"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">PetDog</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/rep.html">rep</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"Pet"</span>, <span class="st">"Dog"</span><span class="op">)</span>, <span class="fl">3</span><span class="op">)</span> 
+<span class="va">PetDog</span></code></pre></div>
+<pre><code>## [1] "Pet" "Dog" "Pet" "Dog" "Pet" "Dog"</code></pre>
+<div id="indexing-vectors" class="section level4" number="4.1.2.1">
+<h4>
+<span class="header-section-number">4.1.2.1</span> Indexing vectors<a class="anchor" aria-label="anchor" href="#indexing-vectors"><i class="fas fa-link"></i></a>
+</h4>
+<p>Selecting one (or more) items out of the longer vector is called indexing. This is a very useful command which we’ll build on in future sections. To index, square brackets after the vector to indicate the position of the value(s) you’re interested in. So, to see the second item in the “numbers” vector, you would type <strong>numbers[2]</strong> and would expect to see the number 5 as the output, like so:</p>
+<div class="sourceCode" id="cb19"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">numbers</span><span class="op">[</span><span class="fl">2</span><span class="op">]</span></code></pre></div>
+<pre><code>## [1] 5</code></pre>
+<p>You can also select multiple values in a vector, whether or not they are continuous.</p>
+<div class="sourceCode" id="cb21"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="co"># continuous, use : command</span>
+<span class="va">words</span><span class="op">[</span><span class="fl">3</span><span class="op">:</span><span class="fl">5</span><span class="op">]</span></code></pre></div>
+<pre><code>## [1] "big"    "fluffy" "treat"</code></pre>
+<div class="sourceCode" id="cb23"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="co"># non-continuous, use c() to create a list of the values you want to see</span>
+<span class="va">words</span><span class="op">[</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">1</span>,<span class="fl">2</span>,<span class="fl">5</span><span class="op">)</span><span class="op">]</span></code></pre></div>
+<pre><code>## [1] "good"  "dog"   "treat"</code></pre>
+</div>
+</div>
+<div id="data-frames" class="section level3" number="4.1.3">
+<h3>
+<span class="header-section-number">4.1.3</span> Data frames<a class="anchor" aria-label="anchor" href="#data-frames"><i class="fas fa-link"></i></a>
+</h3>
+<p>Data can also be stored in a two-dimensional matrix called a data frame. Think of this like a spreadsheet or table of data. Here’s an example of some data about cars that is already in the base R package:</p>
+<div class="sourceCode" id="cb25"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">mtcars</span></code></pre></div>
+<pre><code>##                      mpg cyl  disp  hp drat    wt  qsec vs am gear carb
+## Mazda RX4           21.0   6 160.0 110 3.90 2.620 16.46  0  1    4    4
+## Mazda RX4 Wag       21.0   6 160.0 110 3.90 2.875 17.02  0  1    4    4
+## Datsun 710          22.8   4 108.0  93 3.85 2.320 18.61  1  1    4    1
+## Hornet 4 Drive      21.4   6 258.0 110 3.08 3.215 19.44  1  0    3    1
+## Hornet Sportabout   18.7   8 360.0 175 3.15 3.440 17.02  0  0    3    2
+## Valiant             18.1   6 225.0 105 2.76 3.460 20.22  1  0    3    1
+## Duster 360          14.3   8 360.0 245 3.21 3.570 15.84  0  0    3    4
+## Merc 240D           24.4   4 146.7  62 3.69 3.190 20.00  1  0    4    2
+## Merc 230            22.8   4 140.8  95 3.92 3.150 22.90  1  0    4    2
+## Merc 280            19.2   6 167.6 123 3.92 3.440 18.30  1  0    4    4
+## Merc 280C           17.8   6 167.6 123 3.92 3.440 18.90  1  0    4    4
+## Merc 450SE          16.4   8 275.8 180 3.07 4.070 17.40  0  0    3    3
+## Merc 450SL          17.3   8 275.8 180 3.07 3.730 17.60  0  0    3    3
+## Merc 450SLC         15.2   8 275.8 180 3.07 3.780 18.00  0  0    3    3
+## Cadillac Fleetwood  10.4   8 472.0 205 2.93 5.250 17.98  0  0    3    4
+## Lincoln Continental 10.4   8 460.0 215 3.00 5.424 17.82  0  0    3    4
+## Chrysler Imperial   14.7   8 440.0 230 3.23 5.345 17.42  0  0    3    4
+## Fiat 128            32.4   4  78.7  66 4.08 2.200 19.47  1  1    4    1
+## Honda Civic         30.4   4  75.7  52 4.93 1.615 18.52  1  1    4    2
+## Toyota Corolla      33.9   4  71.1  65 4.22 1.835 19.90  1  1    4    1
+## Toyota Corona       21.5   4 120.1  97 3.70 2.465 20.01  1  0    3    1
+## Dodge Challenger    15.5   8 318.0 150 2.76 3.520 16.87  0  0    3    2
+## AMC Javelin         15.2   8 304.0 150 3.15 3.435 17.30  0  0    3    2
+## Camaro Z28          13.3   8 350.0 245 3.73 3.840 15.41  0  0    3    4
+## Pontiac Firebird    19.2   8 400.0 175 3.08 3.845 17.05  0  0    3    2
+## Fiat X1-9           27.3   4  79.0  66 4.08 1.935 18.90  1  1    4    1
+## Porsche 914-2       26.0   4 120.3  91 4.43 2.140 16.70  0  1    5    2
+## Lotus Europa        30.4   4  95.1 113 3.77 1.513 16.90  1  1    5    2
+## Ford Pantera L      15.8   8 351.0 264 4.22 3.170 14.50  0  1    5    4
+## Ferrari Dino        19.7   6 145.0 175 3.62 2.770 15.50  0  1    5    6
+## Maserati Bora       15.0   8 301.0 335 3.54 3.570 14.60  0  1    5    8
+## Volvo 142E          21.4   4 121.0 109 4.11 2.780 18.60  1  1    4    2</code></pre>
+<p>You’ll learn more about how to get a descriptive sense of what’s in a data frame in the next chapter. For now, it’s worth noting that in addition to the actual numbers (or other types of data) comprising the table itself, each data frame can also have row names and column names. You can list or edit those names with the <strong>rownames()</strong> and <strong>colnames()</strong> commands.</p>
+<div class="sourceCode" id="cb27"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/base/colnames.html">rownames</a></span><span class="op">(</span><span class="va">mtcars</span><span class="op">)</span></code></pre></div>
+<pre><code>##  [1] "Mazda RX4"           "Mazda RX4 Wag"       "Datsun 710"         
+##  [4] "Hornet 4 Drive"      "Hornet Sportabout"   "Valiant"            
+##  [7] "Duster 360"          "Merc 240D"           "Merc 230"           
+## [10] "Merc 280"            "Merc 280C"           "Merc 450SE"         
+## [13] "Merc 450SL"          "Merc 450SLC"         "Cadillac Fleetwood" 
+## [16] "Lincoln Continental" "Chrysler Imperial"   "Fiat 128"           
+## [19] "Honda Civic"         "Toyota Corolla"      "Toyota Corona"      
+## [22] "Dodge Challenger"    "AMC Javelin"         "Camaro Z28"         
+## [25] "Pontiac Firebird"    "Fiat X1-9"           "Porsche 914-2"      
+## [28] "Lotus Europa"        "Ford Pantera L"      "Ferrari Dino"       
+## [31] "Maserati Bora"       "Volvo 142E"</code></pre>
+<div class="sourceCode" id="cb29"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/base/colnames.html">colnames</a></span><span class="op">(</span><span class="va">mtcars</span><span class="op">)</span></code></pre></div>
+<pre><code>##  [1] "mpg"  "cyl"  "disp" "hp"   "drat" "wt"   "qsec" "vs"   "am"   "gear"
+## [11] "carb"</code></pre>
+<div id="indexing-data-frames" class="section level4" number="4.1.3.1">
+<h4>
+<span class="header-section-number">4.1.3.1</span> Indexing data frames<a class="anchor" aria-label="anchor" href="#indexing-data-frames"><i class="fas fa-link"></i></a>
+</h4>
+<p>In the same way that you can index, or select, certain values out of a vector, you can also index the values you need out of a data frame. To do this, you use the following format: <strong>dataframe[row, column]</strong>. Here are some examples:</p>
+<div class="sourceCode" id="cb31"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">mtcars</span><span class="op">[</span><span class="fl">4</span>,<span class="fl">1</span><span class="op">]</span> <span class="co">#select the value in the fourth row and first column</span></code></pre></div>
+<pre><code>## [1] 21.4</code></pre>
+<div class="sourceCode" id="cb33"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">mtcars</span><span class="op">[</span><span class="fl">2</span>,<span class="fl">6</span><span class="op">]</span> <span class="co">#select the value in the second row and sixth column</span></code></pre></div>
+<pre><code>## [1] 2.875</code></pre>
+<div class="sourceCode" id="cb35"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="co">#You can select an entire row or column by leaving the other value blank: </span>
+<span class="va">mtcars</span><span class="op">[</span><span class="fl">3</span>,<span class="op">]</span> <span class="co">#select the entire third row</span></code></pre></div>
+<pre><code>##             mpg cyl disp hp drat   wt  qsec vs am gear carb
+## Datsun 710 22.8   4  108 93 3.85 2.32 18.61  1  1    4    1</code></pre>
+<div class="sourceCode" id="cb37"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">mtcars</span><span class="op">[</span>,<span class="fl">5</span><span class="op">]</span> <span class="co">#select the entire fifth column</span></code></pre></div>
+<pre><code>##  [1] 3.90 3.90 3.85 3.08 3.15 2.76 3.21 3.69 3.92 3.92 3.92 3.07 3.07 3.07 2.93
+## [16] 3.00 3.23 4.08 4.93 4.22 3.70 2.76 3.15 3.73 3.08 4.08 4.43 3.77 4.22 3.62
+## [31] 3.54 4.11</code></pre>
+<div class="sourceCode" id="cb39"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="co">#You can also select multiple rows/columns by using a vector:</span>
+<span class="va">mtcars</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">5</span>,<span class="op">]</span> <span class="co">#select the contents of the first five rows</span></code></pre></div>
+<pre><code>##                    mpg cyl disp  hp drat    wt  qsec vs am gear carb
+## Mazda RX4         21.0   6  160 110 3.90 2.620 16.46  0  1    4    4
+## Mazda RX4 Wag     21.0   6  160 110 3.90 2.875 17.02  0  1    4    4
+## Datsun 710        22.8   4  108  93 3.85 2.320 18.61  1  1    4    1
+## Hornet 4 Drive    21.4   6  258 110 3.08 3.215 19.44  1  0    3    1
+## Hornet Sportabout 18.7   8  360 175 3.15 3.440 17.02  0  0    3    2</code></pre>
+<div class="sourceCode" id="cb41"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">mtcars</span><span class="op">[</span><span class="fl">12</span><span class="op">:</span><span class="fl">16</span>, <span class="fl">1</span><span class="op">:</span><span class="fl">3</span><span class="op">]</span> <span class="co">#within rows 12-16, select the first three columns</span></code></pre></div>
+<pre><code>##                      mpg cyl  disp
+## Merc 450SE          16.4   8 275.8
+## Merc 450SL          17.3   8 275.8
+## Merc 450SLC         15.2   8 275.8
+## Cadillac Fleetwood  10.4   8 472.0
+## Lincoln Continental 10.4   8 460.0</code></pre>
+<div class="sourceCode" id="cb43"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="co">#Finally, you can also use the row and column names to select instead of the numbers. Note that you must enclose the row/column name in quotation marks.</span>
+<span class="va">mtcars</span><span class="op">[</span>,<span class="st">"cyl"</span><span class="op">]</span> <span class="co">#select all the values in the "cyl" column</span></code></pre></div>
+<pre><code>##  [1] 6 6 4 6 8 6 8 4 4 6 6 8 8 8 8 8 8 4 4 4 4 8 8 8 8 4 4 4 8 6 8 4</code></pre>
+<div class="sourceCode" id="cb45"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">mtcars</span><span class="op">[</span><span class="st">"Honda Civic"</span>,<span class="st">"mpg"</span><span class="op">]</span> <span class="co">#select the miles per gallon (mpg) of the Honda Civic.</span></code></pre></div>
+<pre><code>## [1] 30.4</code></pre>
+<div class="sourceCode" id="cb47"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">mtcars</span><span class="op">[</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"Hornet 4 Drive"</span>, <span class="st">"Hornet Sportabout"</span><span class="op">)</span>, <span class="op">]</span> <span class="co">#select all the columns for the Hornet 4 Drive and Hornet Sportabout row</span></code></pre></div>
+<pre><code>##                    mpg cyl disp  hp drat    wt  qsec vs am gear carb
+## Hornet 4 Drive    21.4   6  258 110 3.08 3.215 19.44  1  0    3    1
+## Hornet Sportabout 18.7   8  360 175 3.15 3.440 17.02  0  0    3    2</code></pre>
+<p>Often, you’ll want to select a single column within a dataframe. The shortcut for this is <strong>$</strong>, so if you wanted to select the “cyl” column from mtcars, you could type:</p>
+<div class="sourceCode" id="cb49"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">mtcars</span><span class="op">$</span><span class="va">cyl</span></code></pre></div>
+<pre><code>##  [1] 6 6 4 6 8 6 8 4 4 6 6 8 8 8 8 8 8 4 4 4 4 8 8 8 8 4 4 4 8 6 8 4</code></pre>
+</div>
+</div>
+</div>
+<div id="class" class="section level2" number="4.2">
+<h2>
+<span class="header-section-number">4.2</span> Class<a class="anchor" aria-label="anchor" href="#class"><i class="fas fa-link"></i></a>
+</h2>
+<p>There are three main types of vectors in R: numbers, characters, and logical. Numbers can be represented as <strong>numeric</strong> or <strong>integer</strong> class vectors depending on whether or not they have decimals, but those two classes function very similarly. Any string of words or letters can be stored as a <strong>character</strong> class vector. Finally, <strong>logical</strong> vectors store data that has one of two values: <strong>TRUE</strong> or <strong>FALSE</strong>. You can find the out which type of data any vector is by using the <strong>class()</strong> argument.</p>
+<div class="sourceCode" id="cb51"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="co">#Let's look at the two vectors we created earlier:</span>
+<span class="va">numbers</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">5</span>, <span class="fl">12</span>, <span class="fl">7</span>, <span class="fl">4</span><span class="op">)</span>   
+<span class="va">words</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"good"</span>, <span class="st">"dog"</span>, <span class="st">"big"</span>, <span class="st">"fluffy"</span>, <span class="st">"treat"</span><span class="op">)</span>
+
+<span class="co">#What types of data do they contain?</span>
+<span class="fu"><a href="https://rdrr.io/r/base/class.html">class</a></span><span class="op">(</span><span class="va">numbers</span><span class="op">)</span></code></pre></div>
+<pre><code>## [1] "numeric"</code></pre>
+<div class="sourceCode" id="cb53"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/base/class.html">class</a></span><span class="op">(</span><span class="va">words</span><span class="op">)</span></code></pre></div>
+<pre><code>## [1] "character"</code></pre>
+<div class="sourceCode" id="cb55"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="co">#Note that each vector can only be one class of data. So if you create a vector that has a mix of characters and numbers, it will be stored as a character vector.</span>
+<span class="va">mixed</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"I am"</span>, <span class="fl">16</span>, <span class="st">"going"</span>, <span class="st">"on"</span>, <span class="fl">17</span><span class="op">)</span>
+<span class="fu"><a href="https://rdrr.io/r/base/class.html">class</a></span><span class="op">(</span><span class="va">mixed</span><span class="op">)</span></code></pre></div>
+<pre><code>## [1] "character"</code></pre>
+<div class="sourceCode" id="cb57"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="co">#You can also see what class of vector a column within a data set has:</span>
+<span class="fu"><a href="https://rdrr.io/r/base/class.html">class</a></span><span class="op">(</span><span class="va">mtcars</span><span class="op">[</span>,<span class="st">"mpg"</span><span class="op">]</span><span class="op">)</span></code></pre></div>
+<pre><code>## [1] "numeric"</code></pre>
+<p>You can create a logical vector either by combining TRUE or FALSE values with the <strong>c()</strong> function. For example:</p>
+<div class="sourceCode" id="cb59"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="co">#Creating a logical vector with c(). Note that you do not need quotes here because R recognizes TRUE and FALSE (or abbreviated as T and F) specifically as representing logical data.</span>
+<span class="va">logics</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="cn">TRUE</span>, <span class="cn">FALSE</span>, <span class="cn">TRUE</span>, <span class="cn">T</span>, <span class="cn">F</span><span class="op">)</span>
+<span class="fu"><a href="https://rdrr.io/r/base/class.html">class</a></span><span class="op">(</span><span class="va">logics</span><span class="op">)</span></code></pre></div>
+<pre><code>## [1] "logical"</code></pre>
+<div id="relational-operators" class="section level3" number="4.2.1">
+<h3>
+<span class="header-section-number">4.2.1</span> Relational Operators<a class="anchor" aria-label="anchor" href="#relational-operators"><i class="fas fa-link"></i></a>
+</h3>
+<p>Alternatively, you can create a logical variable by asking a question about an existing variable using a relational operator. These include <strong>==, &gt;, &lt;, &gt;=, and &lt;=</strong>. So for example, <strong>x == y</strong> asks the question, “is x equal to y?” while <strong>x &lt; y </strong> asks the question “is x less than y?” Here, we apply those relational operators to our existing vectors:</p>
+<div class="sourceCode" id="cb61"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="co">#Creating a logical vector with c(). Note that you do not need quotes here because R recognizes TRUE and FALSE (or abbreviated as T and F) specifically as representing logical data.</span>
+<span class="va">numbers</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">5</span>, <span class="fl">12</span>, <span class="fl">7</span>, <span class="fl">4</span><span class="op">)</span>   
+<span class="va">words</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"good"</span>, <span class="st">"dog"</span>, <span class="st">"big"</span>, <span class="st">"fluffy"</span>, <span class="st">"treat"</span><span class="op">)</span>
+<span class="va">PetDog</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/rep.html">rep</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"Pet"</span>, <span class="st">"Dog"</span><span class="op">)</span>, <span class="fl">3</span><span class="op">)</span>
+
+<span class="co">#We might ask which values in numbers are less than 10. </span>
+<span class="va">numbers</span> <span class="op">&lt;</span> <span class="fl">10</span></code></pre></div>
+<pre><code>## [1]  TRUE  TRUE FALSE  TRUE  TRUE</code></pre>
+<div class="sourceCode" id="cb63"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="co">#To save that as a logical variable saying which numbers are small, you could:</span>
+<span class="va">small</span> <span class="op">=</span> <span class="op">(</span><span class="va">numbers</span> <span class="op">&lt;</span> <span class="fl">10</span><span class="op">)</span> 
+
+<span class="co">#You can also use the == operator with character vectors:</span>
+<span class="va">PetDog</span> <span class="op">==</span> <span class="st">"Pet"</span></code></pre></div>
+<pre><code>## [1]  TRUE FALSE  TRUE FALSE  TRUE FALSE</code></pre>
+<p>You can also ask a question about each value within a column of your data frame, and store the answers in a new column. For example, if you were curious which cars had relatively poor gas mileage (we’ll operationalize that as getting less than 20 miles per gallon), you could do the following:</p>
+<div class="sourceCode" id="cb65"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">mtcars</span><span class="op">$</span><span class="va">badmileage</span> <span class="op">=</span> <span class="va">mtcars</span><span class="op">$</span><span class="va">mpg</span> <span class="op">&lt;</span> <span class="fl">20</span></code></pre></div>
+<p>This creates a new column in our mtcars dataframe that record the TRUE/FALSE values for whether each car gets less than 20 miles per gallon.</p>
+<div class="sourceCode" id="cb66"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">mtcars</span><span class="op">[</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"mpg"</span>, <span class="st">"badmileage"</span><span class="op">)</span><span class="op">]</span> <span class="co">#look at the mpg and badmileage columns</span></code></pre></div>
+<pre><code>##                      mpg badmileage
+## Mazda RX4           21.0      FALSE
+## Mazda RX4 Wag       21.0      FALSE
+## Datsun 710          22.8      FALSE
+## Hornet 4 Drive      21.4      FALSE
+## Hornet Sportabout   18.7       TRUE
+## Valiant             18.1       TRUE
+## Duster 360          14.3       TRUE
+## Merc 240D           24.4      FALSE
+## Merc 230            22.8      FALSE
+## Merc 280            19.2       TRUE
+## Merc 280C           17.8       TRUE
+## Merc 450SE          16.4       TRUE
+## Merc 450SL          17.3       TRUE
+## Merc 450SLC         15.2       TRUE
+## Cadillac Fleetwood  10.4       TRUE
+## Lincoln Continental 10.4       TRUE
+## Chrysler Imperial   14.7       TRUE
+## Fiat 128            32.4      FALSE
+## Honda Civic         30.4      FALSE
+## Toyota Corolla      33.9      FALSE
+## Toyota Corona       21.5      FALSE
+## Dodge Challenger    15.5       TRUE
+## AMC Javelin         15.2       TRUE
+## Camaro Z28          13.3       TRUE
+## Pontiac Firebird    19.2       TRUE
+## Fiat X1-9           27.3      FALSE
+## Porsche 914-2       26.0      FALSE
+## Lotus Europa        30.4      FALSE
+## Ford Pantera L      15.8       TRUE
+## Ferrari Dino        19.7       TRUE
+## Maserati Bora       15.0       TRUE
+## Volvo 142E          21.4      FALSE</code></pre>
+<div class="sourceCode" id="cb68"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/base/class.html">class</a></span><span class="op">(</span><span class="va">mtcars</span><span class="op">$</span><span class="va">badmileage</span><span class="op">)</span> <span class="co">#check the class of the new badmileage column</span></code></pre></div>
+<pre><code>## [1] "logical"</code></pre>
+</div>
+</div>
+<div id="size" class="section level2" number="4.3">
+<h2>
+<span class="header-section-number">4.3</span> Size<a class="anchor" aria-label="anchor" href="#size"><i class="fas fa-link"></i></a>
+</h2>
+<p>There are a few useful commands for ascertaining the size of your data frame.</p>
+<div class="sourceCode" id="cb70"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/base/nrow.html">nrow</a></span><span class="op">(</span><span class="va">mtcars</span><span class="op">)</span> <span class="co"># how many rows is mtcars?</span></code></pre></div>
+<pre><code>## [1] 32</code></pre>
+<div class="sourceCode" id="cb72"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/base/nrow.html">ncol</a></span><span class="op">(</span><span class="va">mtcars</span><span class="op">)</span> <span class="co"># how many columns is mtcars?</span></code></pre></div>
+<pre><code>## [1] 12</code></pre>
+<div class="sourceCode" id="cb74"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/base/dim.html">dim</a></span><span class="op">(</span><span class="va">mtcars</span><span class="op">)</span> <span class="co">#print the row length and column length for mtcars.</span></code></pre></div>
+<pre><code>## [1] 32 12</code></pre>
+
+</div>
+</div>
+  <div class="chapter-nav">
+<div class="prev"><a href="basic-commands.html"><span class="header-section-number">3</span> Basic commands</a></div>
+<div class="next"><a href="data-cleaning.html"><span class="header-section-number">5</span> Data Cleaning</a></div>
+</div></main><div class="col-md-3 col-lg-2 d-none d-md-block sidebar sidebar-chapter">
+    <nav id="toc" data-toggle="toc" aria-label="On this page"><h2>On this page</h2>
+      <ul class="nav navbar-nav">
+<li><a class="nav-link" href="#types-of-data-in-r"><span class="header-section-number">4</span> Types of data in R</a></li>
+<li>
+<a class="nav-link" href="#shape"><span class="header-section-number">4.1</span> Shape</a><ul class="nav navbar-nav">
+<li><a class="nav-link" href="#variables"><span class="header-section-number">4.1.1</span> Variables</a></li>
+<li><a class="nav-link" href="#vectors"><span class="header-section-number">4.1.2</span> Vectors</a></li>
+<li><a class="nav-link" href="#data-frames"><span class="header-section-number">4.1.3</span> Data frames</a></li>
+</ul>
+</li>
+<li>
+<a class="nav-link" href="#class"><span class="header-section-number">4.2</span> Class</a><ul class="nav navbar-nav"><li><a class="nav-link" href="#relational-operators"><span class="header-section-number">4.2.1</span> Relational Operators</a></li></ul>
+</li>
+<li><a class="nav-link" href="#size"><span class="header-section-number">4.3</span> Size</a></li>
+</ul>
+
+      <div class="book-extra">
+        <ul class="list-unstyled">
+          
+        </ul>
+</div>
+    </nav>
+</div>
+
+</div>
+</div> <!-- .container -->
+
+<footer class="bg-primary text-light mt-5"><div class="container"><div class="row">
+
+  <div class="col-12 col-md-6 mt-3">
+    <p>"<strong>Getting StaRted with R</strong>" was written by Ryan Carlson and Xanni Brown. It was last built on 2022-03-06.</p>
+  </div>
+
+  <div class="col-12 col-md-6 mt-3">
+    <p>This book was built by the <a class="text-light" href="https://bookdown.org">bookdown</a> R package.</p>
+  </div>
+
+</div></div>
+</footer>
+</body>
+</html>
